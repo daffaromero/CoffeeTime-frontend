@@ -15,8 +15,7 @@ const App = () => {
         <Container>
           <Routes>
             <Route path='/' element={<HomeScreen />} />
-            <Route path='/Test' element={<TestScreen />} />
-            <Route path='/product/:id' element={<ProductScreen />} />
+            <Route path='/product/:id' component={ProductScreen} />
           </Routes>
         </Container>
       </main>
