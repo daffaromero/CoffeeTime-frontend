@@ -22,7 +22,7 @@ const ProductScreen = ({ props }) => {
       <Link className='btn btn-light my-3' to='/'>
         Go Back
       </Link>
-      <Row>
+      <Row key={menu._id}>
         <Col md={6}>
           <Image src={menu.image} alt={menu.name} fluid/>
         </Col>
