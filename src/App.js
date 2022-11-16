@@ -1,21 +1,26 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import logo from "./logo.svg";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
+import TestScreen from "./screens/TestScreen";
 
 const App = () => {
   return (
-    <>
+    <Router>
       <Header />
-      <main className="py-3">
+      <main className='py-3'>
         <Container>
-          <h1>This is CoffeeTime</h1>
+          <Routes>
+            <Route path='/' element={<HomeScreen />} />
+            <Route path='/product/:id' component={ProductScreen} />
+          </Routes>
         </Container>
       </main>
       <Footer />
-    </>
+    </Router>
   );
 };
-
 export default App;
