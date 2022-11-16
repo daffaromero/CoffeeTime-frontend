@@ -5,7 +5,6 @@ import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 
 const URI = "http://127.0.0.1:5500/";
 const ProductScreen = ({ props }) => {
-  /*const product = products.find((p) => p._id === parseInt(id));*/
   const {id} = useParams();
   const [menu, setMenu] = useState([]);
   useEffect(() => {
@@ -32,7 +31,7 @@ const ProductScreen = ({ props }) => {
             <ListGroup.Item>
               <h3>{menu.name}</h3>
             </ListGroup.Item>
-            <ListGroup.Item>Price: ${menu.price}</ListGroup.Item>
+            <ListGroup.Item>Price: Rp{menu.price}</ListGroup.Item>
             <ListGroup.Item>Description: {menu.description}</ListGroup.Item>
           </ListGroup>
         </Col>
@@ -42,7 +41,7 @@ const ProductScreen = ({ props }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Price:</Col>
-                  <Col><strong>${menu.price}</strong></Col>
+                  <Col><strong>Rp{menu.price}</strong></Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
