@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import Product from "../components/Product";
-import drinks from "../products";
 
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
