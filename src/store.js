@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { menuListReducer, menuDetailsReducer } from "./reducers/menuReducers";
+import { cartReducer } from "./reducers/cartReducers"; 
 
 const reducer = combineReducers({
   productList: menuListReducer,

@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Form, Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
+import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem } from "react-bootstrap";
 import { listMenus, listMenuDetails } from "../actions/menuActions";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 const URI = "https://coffeetime-backend.vercel.app";
-const ProductScreen = ({ props }) => {
+const ProductScreen = ({ history, props }) => {
+  const [qty, setQty] = useState(0)
+
   const dispatch = useDispatch();
   const menusDetails = useSelector((state) => state.productDetails);
   const { loading, error, menu } = menusDetails;
@@ -22,6 +24,10 @@ const ProductScreen = ({ props }) => {
     // };
     // fetchMenu();
   }, [dispatch, props]);
+
+  const addToCartHandler = () => {
+    history.push(`/cart/${id}?qty=${qty}`)
+  }
 
   return (
     <>
@@ -65,8 +71,34 @@ const ProductScreen = ({ props }) => {
                     </Col>
                   </Row>
                 </ListGroup.Item>
+
+                {menu.available === true && (
+                  <ListGroupItem>
+                    <Row>
+                      <Col>Qty</Col>
+                      <Col>
+                        {/* <Form.Control 
+                          as='select' 
+                          value={qty} 
+                          onChange={(e) => setQty(e.target.value)}
+                        >
+                          {
+                            [...Array(menu.available).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))                          
+                          }
+
+                        </Form.Control> */}
+                      </Col>
+                    </Row>
+                  </ListGroupItem>
+                ) }
+
                 <ListGroup.Item>
                   <Button
+                    onClick={addToCartHandler}
                     className='btn-block'
                     type='button'
                     disabled={menu.available === false}
