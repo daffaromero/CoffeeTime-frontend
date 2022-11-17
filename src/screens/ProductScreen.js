@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Form, Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem } from "react-bootstrap";
+import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem, Form } from "react-bootstrap";
 import { listMenus, listMenuDetails } from "../actions/menuActions";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 const URI = "https://coffeetime-backend.vercel.app";
 const ProductScreen = ({ history, props }) => {
-  const [qty, setQty] = useState(0)
+  const [qty, setQty] = useState(1)
+  let navigate = useNavigate();
 
   const dispatch = useDispatch();
   const menusDetails = useSelector((state) => state.productDetails);
@@ -26,7 +27,7 @@ const ProductScreen = ({ history, props }) => {
   }, [dispatch, props]);
 
   const addToCartHandler = () => {
-    history.push(`/cart/${id}?qty=${qty}`)
+    navigate(`/cart/${id}?qty=${qty}`)
   }
 
   return (
@@ -67,17 +68,17 @@ const ProductScreen = ({ history, props }) => {
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      {menu.available === true ? "Ready to order" : "Sold out"}
+                      {menu.available > 0 ? "Ready to order" : "Sold out"}
                     </Col>
                   </Row>
                 </ListGroup.Item>
 
-                {menu.available === true && (
+                {menu.available > 0 && (
                   <ListGroupItem>
                     <Row>
                       <Col>Qty</Col>
                       <Col>
-                        {/* <Form.Control 
+                        <Form.Control 
                           as='select' 
                           value={qty} 
                           onChange={(e) => setQty(e.target.value)}
@@ -90,7 +91,7 @@ const ProductScreen = ({ history, props }) => {
                           ))                          
                           }
 
-                        </Form.Control> */}
+                        </Form.Control>
                       </Col>
                     </Row>
                   </ListGroupItem>
@@ -101,7 +102,7 @@ const ProductScreen = ({ history, props }) => {
                     onClick={addToCartHandler}
                     className='btn-block'
                     type='button'
-                    disabled={menu.available === false}
+                    disabled={menu.available === 0}
                   >
                     Add to cart
                   </Button>
