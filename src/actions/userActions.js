@@ -9,6 +9,8 @@ import {
 } from "../constants/userConstants"
 import axios from "axios"
 
+const URI = "http://localhost:5500"
+
 export const login = (email, password) => async (dispatch) => {
     try {
         dispatch({
@@ -22,7 +24,7 @@ export const login = (email, password) => async (dispatch) => {
         }
 
         const {data} = await axios.post(
-            '/api/users/login', 
+            URI + '/api/v1/auth/login', 
             {email, password}, 
             config 
         )
@@ -64,7 +66,7 @@ export const register = (name, email, password) => async (dispatch) => {
         }
 
         const {data} = await axios.post(
-            '/api/users', 
+            URI + '/api/v1/auth/register', 
             {name ,email, password}, 
             config 
         )
