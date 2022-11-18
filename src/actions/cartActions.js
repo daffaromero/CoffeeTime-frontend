@@ -1,6 +1,8 @@
 import axios from "axios";
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
 
+const URI = "https://coffeetime-backend.vercel.app";
+
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/v1/menu/${id}`);
 
