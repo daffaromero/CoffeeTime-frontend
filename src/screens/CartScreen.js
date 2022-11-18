@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import { Link, useParams, useLocation} from 'react-router-dom'
+import { Link, useParams, useLocation, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {Row, Col, ListGroup, Image, Form, Button, Card} from 'react-bootstrap'
 import Message from '../components/Message'
@@ -16,6 +16,7 @@ const CartScreen = ({props, history}) => {
 
     const cart = useSelector((state) => state.cart)
     const { cartItems } = cart
+    const navigate = useNavigate();
     
     useEffect(() => {
         if(productId) {
@@ -27,6 +28,9 @@ const CartScreen = ({props, history}) => {
         console.log('remove')
     }
    
+    const checkoutHandler = () => {
+        navigate('/login?redirect=shipping')
+    }
   return (<Row>
         <Col md={8}>
             <h1>Shopping Cart</h1>
@@ -49,7 +53,7 @@ const CartScreen = ({props, history}) => {
                                 <Col md={2}>
                                 <Form.Control 
                                     as='select' 
-                                    value={qty} 
+                                    value={item.qty} 
                                     onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}
                                     >
                                         {
@@ -73,11 +77,20 @@ const CartScreen = ({props, history}) => {
                 </ListGroup>
             )}
         </Col>
-        <Col md={2}>
-
-        </Col>
-        <Col md={2}>
-
+        <Col md={4}>
+        <Card>
+            <ListGroup variant='flush'>
+              <ListGroup.Item>
+                <h2>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items</h2>
+                {/* ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixes(2)} */}
+                </ListGroup.Item>  
+            </ListGroup>
+            <ListGroup.Item>
+                <Button type='button' className='btn-block' disabled={cartItems.length === 0} onClick={checkoutHandler}>
+                    Proceed to Checkout
+                </Button>
+            </ListGroup.Item>
+        </Card>
         </Col>
     </Row>
   )
