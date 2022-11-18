@@ -43,13 +43,13 @@ const CartScreen = ({ props }) => {
         ) : (
           <ListGroup variant='flush'>
             {cartItems.map((item) => (
-              <ListGroup.Item key={item.prod_id}>
+              <ListGroup.Item key={item.product}>
                 <Row>
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item.prod_id}`}>{item.name}</Link>
+                    <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>Rp{item.price}</Col>
                   <Col md={2}>
@@ -58,7 +58,7 @@ const CartScreen = ({ props }) => {
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(
-                          addToCart(item.prod_id, Number(e.target.value))
+                          addToCart(item.product, Number(e.target.value))
                         )
                       }
                     >
@@ -73,7 +73,7 @@ const CartScreen = ({ props }) => {
                     <Button
                       type='button'
                       variant='light'
-                      onClick={() => removeFromCartHandler(item.prod_id)}
+                      onClick={() => removeFromCartHandler(item.product)}
                     >
                       <FontAwesomeIcon icon={faTrash} />
                     </Button>
