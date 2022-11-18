@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Row,
@@ -14,6 +14,7 @@ import Message from "../components/Message";
 import { addToCart, removeFromCart } from "../actions/cartActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 const CartScreen = ({ props }) => {
   const { id } = useParams();
   const cart = useSelector((state) => state.cart);
@@ -23,15 +24,12 @@ const CartScreen = ({ props }) => {
     dispatch(removeFromCart(id));
   };
 
-  // const qty = location.search ? Number(location.search.split('='))[1] : 1
+  let navigate = useNavigate();
+  const checkoutHandler = () => {
+    navigate("/login?redirect=shipping");
+  };
 
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //     if(productId) {
-  //         dispatch(addToCart(productId, qty))
-  //     }
-  // }, [dispatch, productId, qty])
-
   return (
     <Row>
       <Col md={8}>
@@ -102,7 +100,7 @@ const CartScreen = ({ props }) => {
                 type='button'
                 className='btn-block'
                 disabled={cartItems.length === 0}
-                //onClick={checkoutHandler}
+                onClick={checkoutHandler}
               >
                 Order now
               </Button>
