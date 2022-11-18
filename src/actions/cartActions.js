@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { useParams } from "react-router-dom";
 import { CART_ADD_ITEM } from '../constants/cartConstants'
 
 const URI = "https://coffeetime-backend.vercel.app";
