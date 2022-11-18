@@ -1,14 +1,24 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem, Form } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+  ListGroupItem,
+  Form,
+} from "react-bootstrap";
 import { listMenus, listMenuDetails } from "../actions/menuActions";
+import { addToCart } from "../actions/cartActions";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 const URI = "https://coffeetime-backend.vercel.app";
 const ProductScreen = ({ history, props }) => {
-  const [qty, setQty] = useState(1)
+  const [qty, setQty] = useState(1);
   let navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -27,8 +37,9 @@ const ProductScreen = ({ history, props }) => {
   }, [dispatch, props]);
 
   const addToCartHandler = () => {
-    navigate(`/cart/${id}?qty=${qty}`)
-  }
+    dispatch(addToCart(id, qty));
+    navigate("/cart");
+  };
 
   return (
     <>
@@ -78,24 +89,21 @@ const ProductScreen = ({ history, props }) => {
                     <Row>
                       <Col>Qty</Col>
                       <Col>
-                        <Form.Control 
-                          as='select' 
-                          value={qty} 
+                        <Form.Control
+                          as='select'
+                          value={qty}
                           onChange={(e) => setQty(e.target.value)}
                         >
-                          {
-                            [...Array(menu.available).keys()].map((x) => (
+                          {[...Array(menu.available).keys()].map((x) => (
                             <option key={x + 1} value={x + 1}>
                               {x + 1}
                             </option>
-                          ))                          
-                          }
-
+                          ))}
                         </Form.Control>
                       </Col>
                     </Row>
                   </ListGroupItem>
-                ) }
+                )}
 
                 <ListGroup.Item>
                   <Button
