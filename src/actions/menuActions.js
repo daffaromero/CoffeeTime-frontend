@@ -7,8 +7,6 @@ import {
   MENU_DETAILS_SUCCESS,
   MENU_DETAILS_REQUEST,
 } from "../constants/menuConstants";
-import { useParams } from "react-router-dom";
-
 const URI = "https://coffeetime-backend.vercel.app";
 
 export const listMenus = () => async (dispatch) => {
