@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
@@ -7,7 +7,7 @@ import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 import { register } from "../actions/userActions";
 
-const RegisterScreen = ({ location, history }) => {
+const RegisterScreen = ({}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,19 +15,20 @@ const RegisterScreen = ({ location, history }) => {
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const location = useLocation();
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, error, userInfo } = userRegister;
 
   //Variabel location, history & redirect unavailable yet
 
-  //const redirect = location.search ? location.search.split('=')[1] : '/'
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
     if (userInfo) {
-      //history.push(redirect)
+      navigate(redirect);
     }
-  }, [history, userInfo]); // Add redirect to param
+  }, [navigate, redirect, userInfo]); // Add redirect to param
 
   const submitHandler = (e) => {
     e.preventDefault();
