@@ -27,7 +27,7 @@ const ProfileScreen = ({}) => {
 
   useEffect(() => {
     if (!userInfo) {
-      //navigate('/login');
+      navigate('/login');
     }
     else {
         if(!user.name) {
