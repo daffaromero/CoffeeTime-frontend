@@ -15,7 +15,7 @@ import {
 } from "../constants/userConstants";
 import axios from "axios";
 
-const URI = "http://localhost:5500";
+const URI = "https://coffeetime-backend.vercel.app";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -103,19 +103,18 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       type: USER_DETAILS_REQUEST,
     });
 
-    const { userLogin: {userInfo} } = getState();
+    const {
+      userLogin: { userInfo },
+    } = getState();
 
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
-    const { data } = await axios.get(
-      URI + `/api/v1/users/${id}`,
-      config
-    );
+    const { data } = await axios.get(URI + `/api/v1/users/${id}`, config);
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -138,12 +137,14 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       type: USER_UPDATE_PROFILE_REQUEST,
     });
 
-    const { userLogin: {userInfo} } = getState();
+    const {
+      userLogin: { userInfo },
+    } = getState();
 
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
