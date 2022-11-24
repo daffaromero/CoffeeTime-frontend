@@ -38,7 +38,7 @@ const ProductScreen = ({ history, props }) => {
 
   const addToCartHandler = () => {
     dispatch(addToCart(id, qty));
-    navigate("/cart");
+    navigate('/login?redirect=cart');
   };
 
   return (
