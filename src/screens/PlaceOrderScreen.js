@@ -7,6 +7,15 @@ import CheckoutSteps from '../components/CheckoutSteps'
 
 const PlaceOrderScreen = () => {
     const cart = useSelector(state => state.cart)
+
+    //Calculate prices
+    cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    cart.taxPrice = Number(0.1 * cart.itemsPrice)
+    cart.totalPrice = Number(cart.itemsPrice) + Number(cart.taxPrice)
+
+    const placeOrderHandler = () => {
+        console.log('order')
+    }
   return (
     <>
         <CheckoutSteps step1 step2 step3 step4 />
@@ -62,6 +71,21 @@ const PlaceOrderScreen = () => {
                                 <Col>Items</Col>
                                 <Col>Rp{cart.itemsPrice}</Col>
                             </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Row>
+                                <Col>Tax</Col>
+                                <Col>Rp{cart.taxPrice}</Col>
+                            </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Row>
+                                <Col>Total</Col>
+                                <Col>Rp{cart.totalPrice}</Col>
+                            </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Button type='button' className='btn-block' disabled={cart.cartItems === 0} onClick={placeOrderHandler}>Place Order</Button>
                         </ListGroup.Item>
                     </ListGroup>
                 </Card>
