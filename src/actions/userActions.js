@@ -97,7 +97,7 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const getUserDetails = (id) => async (dispatch, getState) => {
+export const getUserDetails = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
@@ -125,7 +125,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       type: USER_DETAILS_FAIL,
       payload:
         error.response && error.response.data.error
-          ? error.response.data.error
+          ? error.response.error
           : error.error,
     });
   }
@@ -148,15 +148,25 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
-      URI + `/api/v1/auth/me`,
+    const { data } = await axios.put(
+      URI + `/api/v1/auth/updatedetails`,
+      user,
       config
     );
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
+      payload: data.data,
+    });
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data.data,
+    });
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
       payload: data,
     });
+    localStorage.setItem("userInfo", JSON.stringify(data.data));
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
