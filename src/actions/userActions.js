@@ -97,7 +97,7 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const getUserDetails = () => async (dispatch, getState) => {
+export const getUserDetails = (user) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
@@ -118,6 +118,7 @@ export const getUserDetails = () => async (dispatch, getState) => {
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
+      user,
       payload: data.data,
     });
   } catch (error) {
@@ -166,7 +167,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
-    localStorage.setItem("userInfo", JSON.stringify(data.data));
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
