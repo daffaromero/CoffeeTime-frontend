@@ -9,26 +9,28 @@ import {
 } from "../constants/menuConstants";
 const URI = "https://coffeetime-backend.vercel.app";
 
-export const listMenus = () => async (dispatch) => {
-  try {
-    dispatch({ type: MENU_LIST_REQUEST });
+export const listMenus =
+  (keyword = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: MENU_LIST_REQUEST });
 
-    const { data } = await axios.get(URI + "/api/v1/menu");
+      const { data } = await axios.get(URI + `/api/v1/menu?keyword=${keyword}`);
 
-    dispatch({
-      type: MENU_LIST_SUCCESS,
-      payload: data.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: MENU_LIST_FAIL,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.error,
-    });
-  }
-};
+      dispatch({
+        type: MENU_LIST_SUCCESS,
+        payload: data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: MENU_LIST_FAIL,
+        payload:
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.error,
+      });
+    }
+  };
 
 export const listMenuDetails = (id) => async (dispatch) => {
   //const { id } = useParams();
