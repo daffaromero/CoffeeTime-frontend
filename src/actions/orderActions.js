@@ -1,4 +1,7 @@
+import axios from 'axios'
 import {ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL} from '../constants/orderConstants'
+const URI = "https://coffeetime-backend.vercel.app";
+
 export const createOrder = (order) => async (dispatch, getState) => {
     try {
       dispatch({

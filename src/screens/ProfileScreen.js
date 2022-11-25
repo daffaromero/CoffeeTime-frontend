@@ -32,7 +32,7 @@ const ProfileScreen = () => {
     } else {
       if (!user || !user.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
-        dispatch(getUserDetails());
+        dispatch(getUserDetails(user));
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -82,7 +82,7 @@ const ProfileScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='password'>
+            {/* <Form.Group controlId='password'>
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type='password'
@@ -100,7 +100,7 @@ const ProfileScreen = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></Form.Control>
-            </Form.Group>
+            </Form.Group> */}
 
             <Button type='submit' variant='primary'>
               Update
