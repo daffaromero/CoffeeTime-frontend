@@ -1,13 +1,26 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+  ListGroupItem,
+  Form,
+} from "react-bootstrap";
 import { listMenus, listMenuDetails } from "../actions/menuActions";
+import { addToCart } from "../actions/cartActions";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 const URI = "https://coffeetime-backend.vercel.app";
-const ProductScreen = ({ props }) => {
+const ProductScreen = ({ history, props }) => {
+  const [qty, setQty] = useState(1);
+  let navigate = useNavigate();
+
   const dispatch = useDispatch();
   const menusDetails = useSelector((state) => state.productDetails);
   const { loading, error, menu } = menusDetails;
@@ -22,6 +35,11 @@ const ProductScreen = ({ props }) => {
     // };
     // fetchMenu();
   }, [dispatch, props]);
+
+  const addToCartHandler = () => {
+    dispatch(addToCart(id, qty));
+    navigate('/login?redirect=cart');
+  };
 
   return (
     <>
@@ -61,15 +79,38 @@ const ProductScreen = ({ props }) => {
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      {menu.available === true ? "Ready to order" : "Sold out"}
+                      {menu.available > 0 ? "Ready to order" : "Sold out"}
                     </Col>
                   </Row>
                 </ListGroup.Item>
+
+                {menu.available > 0 && (
+                  <ListGroupItem>
+                    <Row>
+                      <Col>Qty</Col>
+                      <Col>
+                        <Form.Control
+                          as='select'
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
+                        >
+                          {[...Array(menu.available).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                  </ListGroupItem>
+                )}
+
                 <ListGroup.Item>
                   <Button
+                    onClick={addToCartHandler}
                     className='btn-block'
                     type='button'
-                    disabled={menu.available === false}
+                    disabled={menu.available === 0}
                   >
                     Add to cart
                   </Button>
