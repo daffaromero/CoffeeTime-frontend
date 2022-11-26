@@ -6,29 +6,46 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getOrderDetails } from "../actions/orderActions";
 
-const OrderScreen = ({props}) => {
-    //const orderId = match.params.id
-    const {orderId} = useParams();
+const OrderScreen = () => {
+    const navigate = useNavigate();
 
+  const dispatch = useDispatch();  
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const {id} = useParams();
+
+  if(!loading)
+  {
+    //Calculate prices
+  order.itemsPrice = order.orderItems.reduce(
+    (acc, item) => acc + item.price * item.qty,
+    0
+  );
+  order.taxPrice = Number(0.1 * order.itemsPrice);
+  order.totalPrice = Number(order.itemsPrice) + Number(order.taxPrice);
+  }
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId))
-  }, [dispatch, props]);
+    dispatch(getOrderDetails(id));
+  }, [dispatch]);
 
-  return loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : <>
+  return ( loading ? ( <Loader /> ) : error ? ( <Message variant='danger'>{error}</Message> ) : ( <>
     <h1>Order {order._id}</h1>
-    <Row order={order._id}>
+    <Row>
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Table Information</h2>
               <p>
+                <strong>Name: </strong> {order.user.name}
+              </p>
+              <p>
+                <strong>Email: </strong>
+                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+              </p>
+              <p>
                 <strong>Table: </strong>
-                {order.shippingAddress.table}
+                {order.shippingAddress}
               </p>
             </ListGroup.Item>
 
@@ -104,6 +121,7 @@ const OrderScreen = ({props}) => {
         </Col>
       </Row>
   </>
+  ))
 };
 
 export default OrderScreen;

@@ -32,7 +32,7 @@ const App = () => {
             <Route path='/login/shipping' element={<ShippingScreen />} />
             <Route path='/login/placeorder' element={<PlaceOrderScreen />} />
             <Route path='/search/:keyword' element={<HomeScreen />} exact />
-            <Route path='placeorder/order/:id' element={<OrderScreen />} />
+            <Route path='order/:id' element={<OrderScreen />} />
           </Routes>
         </Container>
       </main>
