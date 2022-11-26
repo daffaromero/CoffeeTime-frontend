@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import { Button, Row, Col, ListGroup, Image, Card, AccordionCollapse } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getOrderDetails } from "../actions/orderActions";
 
-const OrderScreen = () => {
-    const navigate = useNavigate();
+const URI = "https://coffeetime-backend.vercel.app";
 
-  const dispatch = useDispatch();  
+const OrderScreen = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {id} = useParams();  
+
+  const [sdkReady, setSdkReady] = useState(false);
+
+  
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
-  const {id} = useParams();
+  
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
 
   if(!loading)
   {
@@ -26,8 +35,25 @@ const OrderScreen = () => {
   }
 
   useEffect(() => {
-    dispatch(getOrderDetails(id));
-  }, [dispatch]);
+    // const addPayPalScript = async () => {
+    //   const { data: clientId } = await axios.get(URI + `/api/v1/config/paypal`)
+    //   //console.log(clientId)
+    //   const script = document.createElement('script')
+    //   script.type = 'text/javascript'
+    //   script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+    //   script.async = true
+    //   script.onload = () => {
+    //     setSdkReady(true)
+    //   }
+    //   document.body.appendChild(script)
+    // }
+
+    //addPayPalScript();
+
+    if(!order || order._id !== id) {
+      dispatch(getOrderDetails(id));
+    }
+  }, [dispatch, order, id]);
 
   return ( loading ? ( <Loader /> ) : error ? ( <Message variant='danger'>{error}</Message> ) : ( <>
     <h1>Order {order._id}</h1>
@@ -47,6 +73,7 @@ const OrderScreen = () => {
                 <strong>Table: </strong>
                 {order.shippingAddress}
               </p>
+              {order.isDelivered ? <Message variant='success'>Served on {order.deliveredAt}</Message> : <Message variant='danger'>Not Served</Message>}
             </ListGroup.Item>
 
             <ListGroup.Item>
