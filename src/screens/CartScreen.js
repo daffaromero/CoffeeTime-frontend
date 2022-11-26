@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Row,

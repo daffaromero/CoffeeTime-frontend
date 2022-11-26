@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
-import axios from "axios";
 import Product from "../components/Product";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listMenus } from "../actions/menuActions";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Card } from "react-bootstrap";
 
 // const URI = "http://127.0.0.1:5500/";
 const HomeScreen = () => {
