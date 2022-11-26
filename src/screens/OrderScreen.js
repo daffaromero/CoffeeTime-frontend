@@ -1,70 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
-import CheckoutSteps from "../components/CheckoutSteps";
-import { createOrder } from "../actions/orderActions";
+import Loader from "../components/Loader";
+import { getOrderDetails } from "../actions/orderActions";
 
-const PlaceOrderScreen = () => {
-  const cart = useSelector((state) => state.cart);
+const OrderScreen = ({props}) => {
+    //const orderId = match.params.id
+    const {orderId} = useParams();
 
-  //Calculate prices
-  cart.itemsPrice = cart.cartItems.reduce(
-    (acc, item) => acc + item.price * item.qty,
-    0
-  );
-  cart.taxPrice = Number(0.1 * cart.itemsPrice);
-  cart.totalPrice = Number(cart.itemsPrice) + Number(cart.taxPrice);
-
-  const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, success, error } = orderCreate;
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { order, loading, error } = orderDetails;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (success) {
-      navigate(`/order/${order._id}`);
-    }
-  }, [navigate, success]);
+    dispatch(getOrderDetails(orderId))
+  }, [dispatch, props]);
 
-  const placeOrderHandler = () => {
-    dispatch(
-      createOrder({
-        orderItems: cart.cartItems,
-        paymentMethod: cart.paymentMethod,
-        shippingAddress: cart.shippingAddress,
-        itemsPrice: cart.itemsPrice,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
-      })
-    );
-  };
-  return (
-    <>
-      <CheckoutSteps step1 step2 step3 step4 />
-      <Row>
+  return loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : <>
+    <h1>Order {order._id}</h1>
+    <Row order={order._id}>
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Table Information</h2>
               <p>
                 <strong>Table: </strong>
-                {cart.shippingAddress.table}
+                {order.shippingAddress.table}
               </p>
             </ListGroup.Item>
+
             <ListGroup.Item>
               <h2>Payment Method</h2>
               <strong>Method: </strong>
-              {cart.paymentMethod}
+              {order.paymentMethod}
             </ListGroup.Item>
+
             <ListGroup.Item>
               <h2>Order Items</h2>
-              {cart.cartItems.length === 0 ? (
-                <Message>Your cart is empty</Message>
+              {order.orderItems.length === 0 ? (
+                <Message>Order is empty</Message>
               ) : (
                 <ListGroup variant='flush'>
-                  {cart.cartItems.map((item, index) => (
+                  {order.orderItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
                         <Col md={1}>
@@ -101,7 +81,7 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>Rp{cart.itemsPrice}</Col>
+                  <Col>Rp{order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
@@ -110,34 +90,20 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>Rp{cart.taxPrice}</Col>
+                  <Col>Rp{order.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>Rp{cart.totalPrice}</Col>
+                  <Col>Rp{order.totalPrice}</Col>
                 </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant='danger'>{error}</Message>}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Button
-                  type='button'
-                  className='btn-block'
-                  disabled={cart.cartItems === 0}
-                  onClick={placeOrderHandler}
-                >
-                  Place Order
-                </Button>
               </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>
       </Row>
-    </>
-  );
+  </>
 };
 
-export default PlaceOrderScreen;
+export default OrderScreen;
