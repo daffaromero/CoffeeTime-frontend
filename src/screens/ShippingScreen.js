@@ -1,46 +1,46 @@
-import React, { useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import FormContainer from '../components/FormContainer'
-import CheckoutSteps from '../components/CheckoutSteps'
-import { saveShippingAddress } from '../actions/cartActions'
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import FormContainer from "../components/FormContainer";
+import CheckoutSteps from "../components/CheckoutSteps";
+import { saveShippingAddress } from "../actions/cartActions";
 import { useNavigate } from "react-router-dom";
 
 const ShippingScreen = ({ history }) => {
-  const cart = useSelector((state) => state.cart)
-  const { shippingAddress } = cart
+  const cart = useSelector((state) => state.cart);
+  const { shippingAddress } = cart;
 
-  const [address, setAddress] = useState(shippingAddress.address)
-  const [city, setCity] = useState(shippingAddress.city)
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
-  const [country, setCountry] = useState(shippingAddress.country)
+  const [table, setTable] = useState(shippingAddress.table);
+  // const [city, setCity] = useState(shippingAddress.city)
+  // const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
+  // const [country, setCountry] = useState(shippingAddress.country)
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    dispatch(saveShippingAddress({ address, city, postalCode, country }))
-    navigate('/login?redirect=payment')
-  }
+    e.preventDefault();
+    dispatch(saveShippingAddress({ table }));
+    navigate("/login?redirect=payment");
+  };
 
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 />
-      <h1>Shipping</h1>
+      <h1>Information</h1>
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId='address'>
-          <Form.Label>Address</Form.Label>
+        <Form.Group controlId='table'>
+          <Form.Label>Table</Form.Label>
           <Form.Control
             type='text'
-            placeholder='Enter address'
-            value={address}
+            placeholder='Enter table no.'
+            value={table}
             required
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={(e) => setTable(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId='city'>
+        {/* <Form.Group controlId='city'>
           <Form.Label>City</Form.Label>
           <Form.Control
             type='text'
@@ -71,14 +71,14 @@ const ShippingScreen = ({ history }) => {
             required
             onChange={(e) => setCountry(e.target.value)}
           ></Form.Control>
-        </Form.Group>
+        </Form.Group> */}
 
         <Button type='submit' variant='primary'>
           Continue
         </Button>
       </Form>
     </FormContainer>
-  )
-}
+  );
+};
 
-export default ShippingScreen
+export default ShippingScreen;

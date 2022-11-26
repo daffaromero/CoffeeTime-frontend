@@ -6,23 +6,20 @@ import Product from "../components/Product";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listMenus } from "../actions/menuActions";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 
 // const URI = "http://127.0.0.1:5500/";
 const HomeScreen = () => {
+  const { keyword } = useParams();
   const dispatch = useDispatch();
   const menusList = useSelector((state) => state.productList);
   const { loading, error, menus } = menusList;
   // const [menus, setMenus] = useState([]);
   useEffect(() => {
-    dispatch(listMenus());
-    // const fetchMenus = async () => {
-    //   const { data } = await axios.get("http://127.0.0.1:5500/api/v1/menu");
-    //   setMenus(data.data);
-    // };
-    // fetchMenus();
-  }, [dispatch]);
+    dispatch(listMenus(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <>
