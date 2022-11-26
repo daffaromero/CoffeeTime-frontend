@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,8 +31,9 @@ const PlaceOrderScreen = () => {
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
-        orederItems: cart.cartItems,
+        orderItems: cart.cartItems,
         paymentMethod: cart.paymentMethod,
+        shippingAddress: cart.shippingAddress.table,
         itemsPrice: cart.itemsPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
@@ -46,7 +47,7 @@ const PlaceOrderScreen = () => {
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <h2>Table Information</h2>
               <p>
                 <strong>Table: </strong>
                 {cart.shippingAddress.table}
@@ -117,6 +118,9 @@ const PlaceOrderScreen = () => {
                   <Col>Total</Col>
                   <Col>Rp{cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant='danger'>{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button
