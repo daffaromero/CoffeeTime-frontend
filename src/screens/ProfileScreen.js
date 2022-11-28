@@ -118,7 +118,6 @@ const ProfileScreen = () => {
         <h2>My Orders</h2>
         {/* {loadingOrders ? <Loader /> : errorOrders ? <Message variant='danger'>{errorOrders}</Message> : (
           <Table striped bordered hover responsive className='table-sm'>
-          //<Table class='table table-sm table-striped table-bordered table-hover table-responsive'>
             <thead>
               <tr>
                 <th>ID</th>
