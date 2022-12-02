@@ -67,7 +67,7 @@ const PlaceOrderScreen = () => {
                   {cart.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
-                        <Col md={1}>
+                        <Col md={2}>
                           <Image
                             src={item.image}
                             alt={item.name}
@@ -77,7 +77,9 @@ const PlaceOrderScreen = () => {
                         </Col>
                         <Col>
                           <Link to={`/product/${item.product}`}>
+                            <strong>
                             {item.name}
+                            </strong>
                           </Link>
                         </Col>
                         <Col md={4}>
@@ -125,7 +127,7 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item>
                 <Button
                   type='button'
-                  className='btn-block'
+                  className='btn-block btn-outline-info'
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >
