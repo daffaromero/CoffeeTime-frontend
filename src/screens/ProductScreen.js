@@ -43,7 +43,7 @@ const ProductScreen = ({ history, props }) => {
 
   return (
     <>
-      <Link className='btn btn-light my-3' to='/'>
+      <Link className='btn btn-outline-danger my-3' to='/'>
         Go Back
       </Link>
       {loading ? (
@@ -93,6 +93,7 @@ const ProductScreen = ({ history, props }) => {
                           as='select'
                           value={qty}
                           onChange={(e) => setQty(e.target.value)}
+                          className="btn-outline-info"
                         >
                           {[...Array(menu.available).keys()].map((x) => (
                             <option key={x + 1} value={x + 1}>

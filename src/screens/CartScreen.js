@@ -47,11 +47,12 @@ const CartScreen = ({ props }) => {
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                    <Link to={`/product/${item.product}`}><strong>{item.name}</strong></Link>
                   </Col>
                   <Col md={2}>Rp{item.price}</Col>
                   <Col md={2}>
                     <Form.Control
+                      className="btn-outline-info"
                       as='select'
                       value={item.qty}
                       onChange={(e) =>
@@ -72,6 +73,7 @@ const CartScreen = ({ props }) => {
                       type='button'
                       variant='light'
                       onClick={() => removeFromCartHandler(item.product)}
+                      className='btn-outline-danger'
                     >
                       <FontAwesomeIcon icon={faTrash} />
                     </Button>
