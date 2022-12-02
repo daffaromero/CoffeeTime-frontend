@@ -36,7 +36,7 @@ const CartScreen = ({ props }) => {
         <h1>Your Order</h1>
         {cartItems.length === 0 ? (
           <Message>
-            Your order is empty<Link to='/'>Go Back</Link>
+            Your order is empty<Link to='/'> Go Back</Link>
           </Message>
         ) : (
           <ListGroup variant='flush'>
@@ -86,10 +86,10 @@ const CartScreen = ({ props }) => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h3>
+              <h2>
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
-              </h3>
+              </h2>
               Rp
               {cartItems
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
@@ -98,7 +98,7 @@ const CartScreen = ({ props }) => {
             <ListGroup.Item>
               <Button
                 type='button'
-                className='btn-block'
+                className='btn-outline-info btn-block'
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
               >

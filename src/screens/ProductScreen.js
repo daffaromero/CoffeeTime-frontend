@@ -108,7 +108,7 @@ const ProductScreen = ({ history, props }) => {
                 <ListGroup.Item>
                   <Button
                     onClick={addToCartHandler}
-                    className='btn-block'
+                    className='btn-block btn-outline-info'
                     type='button'
                     disabled={menu.available === 0}
                   >
