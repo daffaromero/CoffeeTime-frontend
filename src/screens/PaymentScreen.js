@@ -15,7 +15,7 @@ const PaymentScreen = ({}) => {
     navigate('/login?redirect=shipping')
   }
 
-  const [paymentMethod, setPaymentMethod] = useState('PayPal')
+  const [paymentMethod, setPaymentMethod] = useState('Cash')
 
 
   const dispatch = useDispatch()

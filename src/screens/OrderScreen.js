@@ -98,6 +98,9 @@ const OrderScreen = () => {
                 <strong>Method: </strong>
                 {order.paymentMethod}
               </p>
+              <Button href='/order/${order._id}'>
+
+              </Button>
               {order.isPaid ? <Message variant='success'>Paid on {order.paidAt}</Message> : <Message variant='danger'>Not Paid</Message>}
             </ListGroup.Item>
 
@@ -165,9 +168,12 @@ const OrderScreen = () => {
               {!order.isPaid && (
                 <ListGroup.Item>
                   {loadingPay && <Loader/>}
-                  {!sdkReady ? <Loader /> : (
+                  {/* {!sdkReady ? <Loader /> : (
                     <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}/>
-                  )}
+                  }  */}
+                    <Row>
+                      <Col>Please pay at cashier</Col>
+                    </Row>
                 </ListGroup.Item>
               )}
             </ListGroup>
