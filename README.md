@@ -18,6 +18,11 @@ Front-end aplikasi telah di-hosting di <a href="https://coffeetime-ten.vercel.ap
 
 ## How to run locally
 
+Lakukan install semua dependency front-end:
+```
+npm install
+```
+
 Untuk menjalankan development build:
 
 ```
