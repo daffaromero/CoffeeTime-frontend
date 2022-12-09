@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# coffeetime-frontend
+Repository front-end aplikasi web kelompok 15 mata kuliah Pengembangan Aplikasi Web.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tech Stack
 
-## Available Scripts
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+ ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+ 
+## Kelompok 15
+Daffa Muhammad Romero - 20/456363/TK/50493<br>
+Nindya Fathul Risya - 20/460556/TK/51145<br>
+Nur Wulan Febriani - 20/460557/TK/51146<br>
+Anisya Mahira Salienka - 20/463593/TK/51585<br>
+Nur Azzam Wafiuddin - 21/479115/TK/52806<br>
 
-In the project directory, you can run:
+## Hosted!
+Front-end aplikasi telah di-hosting di <a href="https://coffeetime-ten.vercel.app/">Vercel</a><br>
 
-### `npm start`
+## How to run locally
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Untuk menjalankan development build:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+npm start
+```
 
-### `npm test`
+Untuk menjalankan production build:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm run build
+serve build
+```
 
-### `npm run build`
+## Bugs
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Production build mengandung bug, di mana salah satu reducer, yaitu CART_ADD_ITEM tidak di-fire oleh action cartActions.
+Development build tidak mengandung bug ini.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+How to reproduce?
+<ol>
+  <li>Jalankan production build atau akses <a href="https://coffeetime-ten.vercel.app/">hosting front-end</a></li>
+  <li>Lakukan login, atau register lalu login</li>
+  <li>Klik salah satu menu</li>
+  <li>Klik 'Add to cart'</li>
+  <li>Menu yang ditambahkan tidak muncul di cart</li>
+</ol>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Link Slide Presentasi (Canva)
+<a href="https://bit.ly/SlideKel15">Presentasi (bit.ly)</a>
